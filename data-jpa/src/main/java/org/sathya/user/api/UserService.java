@@ -13,4 +13,5 @@ public interface UserService {
 
     UserRequest get(long id);
 
+    public List<UserRequest> findByLastName(String lastName);
 }

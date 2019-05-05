@@ -7,6 +7,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -35,4 +37,9 @@ public class UserController {
         return userService.get(id);
     }
 
+    @GetMapping("/lastName/{lastName}")
+    public List<UserRequest> findByLastName(@PathVariable String lastName) {
+        logger.info("Fetching the user information for user with last name : {}", lastName);
+        return userService.findByLastName(lastName);
+    }
 }

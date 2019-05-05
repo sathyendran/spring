@@ -2,6 +2,7 @@ package org.sathya.user.api;
 
 import org.sathya.user.bom.User;
 import org.sathya.user.messaging.UserRequest;
+import org.sathya.util.ConverterUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService{
@@ -60,5 +62,16 @@ public class UserServiceImpl implements UserService{
             return  userRequest;
         }
         return null;
+    }
+
+    @Override
+    public List<UserRequest> findByLastName(String lastName) {
+        List<User> byLastName = userRepository.findByLastName(lastName);
+        List<UserRequest> userRequests = byLastName.stream().map(user -> {
+            UserRequest userRequest = new UserRequest();
+            BeanUtils.copyProperties(user,userRequest);
+            return userRequest;
+        }).collect(Collectors.toList());
+        return userRequests;
     }
 }
