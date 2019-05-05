@@ -29,6 +29,7 @@ public class Application implements CommandLineRunner {
 				new User("Raja", "a", "raja.a@gmail.com"),
 				new User("Ragav", "a", "ragav.a@gmail.com")
 		);
+		userRepository.deleteAll();
 		userRepository.saveAll(users);
 	}
 }
