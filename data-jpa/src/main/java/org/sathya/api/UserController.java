@@ -7,7 +7,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-@RestController("/user")
+@RestController
+@RequestMapping("/user")
 public class UserController {
 
     @Autowired
@@ -28,5 +29,10 @@ public class UserController {
         return userService.update(userRequest);
     }
 
+    @GetMapping("/{id}")
+    public UserRequest getById(@PathVariable Long id) {
+        logger.info("Fetching the user information for user : {}", id);
+        return userService.get(id);
+    }
 
 }
